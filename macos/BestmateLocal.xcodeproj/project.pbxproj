@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		053DE05E4D6BA34FDFD342A1 /* WorkspaceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB58C735E3B897C662B2F397 /* WorkspaceModels.swift */; };
+		0AFABB5D3172CAC92FF97E01 /* WorkspaceGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E8B6A75903F1092C560149 /* WorkspaceGateway.swift */; };
+		1CC331DED591BD30D5802D97 /* WorkspaceWhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EE2CAA7B5CEB18F53A38AE /* WorkspaceWhatsApp.swift */; };
+		24E9EE571947D19AB54B6E3D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546D79F21D09731AC96CB58 /* Keychain.swift */; };
+		34C08A28E0122BA0C4156AAA /* WorkspaceFileDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED19B344756B4EF9F8F20488 /* WorkspaceFileDiscovery.swift */; };
+		3F8A66D1CF6A01CC206A9C33 /* WorkspaceAgentAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE0D0ECF83D9F9AAB02529D /* WorkspaceAgentAccess.swift */; };
+		496A9ED0893BC8B295D6B191 /* LocalWorkspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722859E1FBEC057731FA2E2C /* LocalWorkspaceTests.swift */; };
+		6487252565F2BDA13134FAAA /* WorkspacePurpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A9F84347CAE32F6867C219 /* WorkspacePurpose.swift */; };
+		74C88A326CEAFB61A485B358 /* GranolaApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8150626C23434135A172BDB2 /* GranolaApiClient.swift */; };
+		7DCEA9C39728B6A84B3C40B1 /* WorkspaceGranola.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7153A9F8651FC4CBB0CADD /* WorkspaceGranola.swift */; };
+		81E38689EEBBB4B21FDD1320 /* WorkspaceTelegram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77807B0C7CC8A7BB48E486E1 /* WorkspaceTelegram.swift */; };
+		87412DD9C041F2796A6730C3 /* WorkspaceTeamViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2649D225F41CAD67B945C3 /* WorkspaceTeamViews.swift */; };
+		98E5756148F8FDDE33DBDE38 /* NativeWorkspaceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A842752E8038C7AF09739947 /* NativeWorkspaceStore.swift */; };
+		A087E516EBBACF582BAA92A3 /* WorkspaceViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C9243822F1C136AB04DBD8 /* WorkspaceViews.swift */; };
+		B1A6D459AB88985265300C59 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3517BE6448DC05F9ED492B7F /* WorkspaceRepository.swift */; };
+		C422D384BBA47FA61387F61E /* WorkspaceChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E35CCEF509CBA05CC0A7954 /* WorkspaceChannels.swift */; };
+		E225603FD9A78778751A9F77 /* BestmateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3764DF557B7408D34AD350 /* BestmateApp.swift */; };
+		F48B4B7954A6CBFCE057B1EC /* WorkspaceRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942BF63EC00A16B8F79492B /* WorkspaceRuntime.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85ADB25974395A1319312BFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4222F751DC3C46D14548BCE6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 01BE50FA88E7446225C0AE6E;
+			remoteInfo = BestmateLocal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02E8B6A75903F1092C560149 /* WorkspaceGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceGateway.swift; sourceTree = "<group>"; };
+		03A9F84347CAE32F6867C219 /* WorkspacePurpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePurpose.swift; sourceTree = "<group>"; };
+		2D7153A9F8651FC4CBB0CADD /* WorkspaceGranola.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceGranola.swift; sourceTree = "<group>"; };
+		3517BE6448DC05F9ED492B7F /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
+		3F3764DF557B7408D34AD350 /* BestmateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestmateApp.swift; sourceTree = "<group>"; };
+		5546D79F21D09731AC96CB58 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		6E35CCEF509CBA05CC0A7954 /* WorkspaceChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceChannels.swift; sourceTree = "<group>"; };
+		722859E1FBEC057731FA2E2C /* LocalWorkspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkspaceTests.swift; sourceTree = "<group>"; };
+		77807B0C7CC8A7BB48E486E1 /* WorkspaceTelegram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceTelegram.swift; sourceTree = "<group>"; };
+		7942BF63EC00A16B8F79492B /* WorkspaceRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRuntime.swift; sourceTree = "<group>"; };
+		80C9243822F1C136AB04DBD8 /* WorkspaceViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceViews.swift; sourceTree = "<group>"; };
+		8150626C23434135A172BDB2 /* GranolaApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GranolaApiClient.swift; sourceTree = "<group>"; };
+		8E848A03322E8B3C1F6D5708 /* BestmateLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestmateLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95EE2CAA7B5CEB18F53A38AE /* WorkspaceWhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceWhatsApp.swift; sourceTree = "<group>"; };
+		A842752E8038C7AF09739947 /* NativeWorkspaceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWorkspaceStore.swift; sourceTree = "<group>"; };
+		AB58C735E3B897C662B2F397 /* WorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceModels.swift; sourceTree = "<group>"; };
+		B5C20332305A635035032574 /* BestmateLocalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BestmateLocalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE2649D225F41CAD67B945C3 /* WorkspaceTeamViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceTeamViews.swift; sourceTree = "<group>"; };
+		ED19B344756B4EF9F8F20488 /* WorkspaceFileDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceFileDiscovery.swift; sourceTree = "<group>"; };
+		FCE0D0ECF83D9F9AAB02529D /* WorkspaceAgentAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAgentAccess.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		60757C3FADE5041182797E06 /* LocalWorkspace */ = {
+			isa = PBXGroup;
+			children = (
+				A842752E8038C7AF09739947 /* NativeWorkspaceStore.swift */,
+				FCE0D0ECF83D9F9AAB02529D /* WorkspaceAgentAccess.swift */,
+				6E35CCEF509CBA05CC0A7954 /* WorkspaceChannels.swift */,
+				ED19B344756B4EF9F8F20488 /* WorkspaceFileDiscovery.swift */,
+				02E8B6A75903F1092C560149 /* WorkspaceGateway.swift */,
+				2D7153A9F8651FC4CBB0CADD /* WorkspaceGranola.swift */,
+				AB58C735E3B897C662B2F397 /* WorkspaceModels.swift */,
+				03A9F84347CAE32F6867C219 /* WorkspacePurpose.swift */,
+				3517BE6448DC05F9ED492B7F /* WorkspaceRepository.swift */,
+				7942BF63EC00A16B8F79492B /* WorkspaceRuntime.swift */,
+				DE2649D225F41CAD67B945C3 /* WorkspaceTeamViews.swift */,
+				77807B0C7CC8A7BB48E486E1 /* WorkspaceTelegram.swift */,
+				80C9243822F1C136AB04DBD8 /* WorkspaceViews.swift */,
+				95EE2CAA7B5CEB18F53A38AE /* WorkspaceWhatsApp.swift */,
+			);
+			path = LocalWorkspace;
+			sourceTree = "<group>";
+		};
+		82133D89D76EEDE6D9F3D69E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3F3764DF557B7408D34AD350 /* BestmateApp.swift */,
+				8150626C23434135A172BDB2 /* GranolaApiClient.swift */,
+				5546D79F21D09731AC96CB58 /* Keychain.swift */,
+				60757C3FADE5041182797E06 /* LocalWorkspace */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AAA0D15F09E366EE6839E810 = {
+			isa = PBXGroup;
+			children = (
+				82133D89D76EEDE6D9F3D69E /* Sources */,
+				FD3298F78AC8599950D7701B /* Tests */,
+				F41745D6BED70E7B714EB635 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F41745D6BED70E7B714EB635 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E848A03322E8B3C1F6D5708 /* BestmateLocal.app */,
+				B5C20332305A635035032574 /* BestmateLocalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD3298F78AC8599950D7701B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				722859E1FBEC057731FA2E2C /* LocalWorkspaceTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01BE50FA88E7446225C0AE6E /* BestmateLocal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9B999482B6BE5038FF479A6 /* Build configuration list for PBXNativeTarget "BestmateLocal" */;
+			buildPhases = (
+				B1F9DA35381BDC91B2B80534 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BestmateLocal;
+			packageProductDependencies = (
+			);
+			productName = BestmateLocal;
+			productReference = 8E848A03322E8B3C1F6D5708 /* BestmateLocal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		83337672331D4DF951425D2E /* BestmateLocalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5C65C626E49D6B31679FE86 /* Build configuration list for PBXNativeTarget "BestmateLocalTests" */;
+			buildPhases = (
+				DF4EF5676B0DFA16834519B6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E73D48562CF49AED1C0FA988 /* PBXTargetDependency */,
+			);
+			name = BestmateLocalTests;
+			packageProductDependencies = (
+			);
+			productName = BestmateLocalTests;
+			productReference = B5C20332305A635035032574 /* BestmateLocalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4222F751DC3C46D14548BCE6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					01BE50FA88E7446225C0AE6E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					83337672331D4DF951425D2E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = AC50C1E72C3CE8DEBC2572D5 /* Build configuration list for PBXProject "BestmateLocal" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AAA0D15F09E366EE6839E810;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F41745D6BED70E7B714EB635 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01BE50FA88E7446225C0AE6E /* BestmateLocal */,
+				83337672331D4DF951425D2E /* BestmateLocalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B1F9DA35381BDC91B2B80534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E225603FD9A78778751A9F77 /* BestmateApp.swift in Sources */,
+				74C88A326CEAFB61A485B358 /* GranolaApiClient.swift in Sources */,
+				24E9EE571947D19AB54B6E3D /* Keychain.swift in Sources */,
+				98E5756148F8FDDE33DBDE38 /* NativeWorkspaceStore.swift in Sources */,
+				3F8A66D1CF6A01CC206A9C33 /* WorkspaceAgentAccess.swift in Sources */,
+				C422D384BBA47FA61387F61E /* WorkspaceChannels.swift in Sources */,
+				34C08A28E0122BA0C4156AAA /* WorkspaceFileDiscovery.swift in Sources */,
+				0AFABB5D3172CAC92FF97E01 /* WorkspaceGateway.swift in Sources */,
+				7DCEA9C39728B6A84B3C40B1 /* WorkspaceGranola.swift in Sources */,
+				053DE05E4D6BA34FDFD342A1 /* WorkspaceModels.swift in Sources */,
+				6487252565F2BDA13134FAAA /* WorkspacePurpose.swift in Sources */,
+				B1A6D459AB88985265300C59 /* WorkspaceRepository.swift in Sources */,
+				F48B4B7954A6CBFCE057B1EC /* WorkspaceRuntime.swift in Sources */,
+				87412DD9C041F2796A6730C3 /* WorkspaceTeamViews.swift in Sources */,
+				81E38689EEBBB4B21FDD1320 /* WorkspaceTelegram.swift in Sources */,
+				A087E516EBBACF582BAA92A3 /* WorkspaceViews.swift in Sources */,
+				1CC331DED591BD30D5802D97 /* WorkspaceWhatsApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF4EF5676B0DFA16834519B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				496A9ED0893BC8B295D6B191 /* LocalWorkspaceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E73D48562CF49AED1C0FA988 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 01BE50FA88E7446225C0AE6E /* BestmateLocal */;
+			targetProxy = 85ADB25974395A1319312BFD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		411F9EE4BBD3EA2C631009AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bestmate Local";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.bestmate.local.opensource;
+				PRODUCT_NAME = BestmateLocal;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		632C9E6F0A77DDB2AC04057D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Bestmate Local";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.bestmate.local.opensource;
+				PRODUCT_NAME = BestmateLocal;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7A929F30058461492E919A6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BestmateLocal.app/Contents/MacOS/BestmateLocal";
+			};
+			name = Release;
+		};
+		A31CDF3FB5CA396E17A8311D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BestmateLocal.app/Contents/MacOS/BestmateLocal";
+			};
+			name = Debug;
+		};
+		C36F4773E96F8844B18A67B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		CB331807BE7C9ACBDF1B2FD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC50C1E72C3CE8DEBC2572D5 /* Build configuration list for PBXProject "BestmateLocal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB331807BE7C9ACBDF1B2FD9 /* Debug */,
+				C36F4773E96F8844B18A67B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C5C65C626E49D6B31679FE86 /* Build configuration list for PBXNativeTarget "BestmateLocalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A31CDF3FB5CA396E17A8311D /* Debug */,
+				7A929F30058461492E919A6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E9B999482B6BE5038FF479A6 /* Build configuration list for PBXNativeTarget "BestmateLocal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				632C9E6F0A77DDB2AC04057D /* Debug */,
+				411F9EE4BBD3EA2C631009AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4222F751DC3C46D14548BCE6 /* Project object */;
+}

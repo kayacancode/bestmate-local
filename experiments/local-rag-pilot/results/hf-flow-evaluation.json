@@ -1,0 +1,1250 @@
+{
+  "fixture_sha256": "15149b65760f8239f9db998876521c36ad0f4f8904095cc47304ea8acc3e3b4e",
+  "backend": "Granite 4.1 3B + individual HF adapters (not composed Switch)",
+  "platform": "arm64",
+  "scope": "Questions about operating the document conversion service, handling failed conversion jobs, and arranging conversion or client onboarding handoffs, including follow-up questions about these tasks.",
+  "repeats": 2,
+  "cases": [
+    {
+      "id": "partial_write",
+      "category": "answer",
+      "repeat": 1,
+      "question": "What should I do after a conversion job partially writes its output and then fails?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Escalate to service owner, record job identifier, and do not retry without confirmation that output will not be duplicated.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 2.99
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 1.05
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 2.72
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.43
+          },
+          {
+            "stage": "answerability",
+            "seconds": 1.19
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.44
+          },
+          {
+            "stage": "generation",
+            "seconds": 3.08
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.96
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I do after a conversion job partially writes its output and then fails?",
+        "status": "answered",
+        "answer": "escalate to the service owner and record the job identifier. [runbook]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 60,
+            "response_text": "escalate to the service owner and record the job identifier.",
+            "citation_doc_id": "runbook",
+            "citation_begin": 142,
+            "citation_end": 226,
+            "citation_text": "After a partial write, escalate to the service owner and record the job identifier. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": false,
+      "seconds": 14.87
+    },
+    {
+      "id": "schema",
+      "category": "answer",
+      "repeat": 1,
+      "question": "What should happen after a schema mismatch in a conversion job?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Investigate before repeating; do not recommend an immediate automatic retry.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.71
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.71
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.42
+    },
+    {
+      "id": "explicit_onboarding",
+      "category": "answer",
+      "repeat": 1,
+      "question": "For a new client's onboarding handoff, who receives it and what should I send?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Account manager receives signed onboarding checklist and client contact details.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.71
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.71
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.43
+    },
+    {
+      "id": "transient",
+      "category": "answer",
+      "repeat": 1,
+      "question": "When is it safe to retry a transient transport failure in the conversion service?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Only after confirming that no output was written; do not invent a retry count.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.67
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 1.27
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.83
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.0
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.72
+          },
+          {
+            "stage": "clarification",
+            "seconds": 0.93
+          },
+          {
+            "stage": "generation",
+            "seconds": 4.54
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.72
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "When is it safe to retry a transient transport failure in the conversion service?",
+        "status": "answered",
+        "answer": "A transient transport failure may be retried only after confirming that no output was written. [runbook]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 94,
+            "response_text": "A transient transport failure may be retried only after confirming that no output was written.",
+            "citation_doc_id": "runbook",
+            "citation_begin": 379,
+            "citation_end": 474,
+            "citation_text": "A transient transport failure may be retried only after confirming that no output was written. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 11.7
+    },
+    {
+      "id": "followup_id",
+      "category": "followup",
+      "repeat": 1,
+      "question": "What should I record when I do that?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Resolve 'that' to escalation and identify the job identifier.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.73
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.85
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 2.29
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.84
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.16
+          },
+          {
+            "stage": "generation",
+            "seconds": 3.88
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.76
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I record when I escalate to the service owner before retrying?",
+        "status": "answered",
+        "answer": "Record the job identifier and incident summary. [conversion]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 47,
+            "response_text": "Record the job identifier and incident summary.",
+            "citation_doc_id": "conversion",
+            "citation_begin": 0,
+            "citation_end": 95,
+            "citation_text": "For the conversion handoff, send the job identifier and incident summary to the service owner. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 11.52
+    },
+    {
+      "id": "followup_recipient",
+      "category": "followup",
+      "repeat": 1,
+      "question": "Who should I send it to?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Resolve onboarding handoff to account manager, not service owner.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.81
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.82
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.63
+    },
+    {
+      "id": "price",
+      "category": "missing",
+      "repeat": 1,
+      "question": "How much does the conversion service charge per document?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Do not invent pricing or call this unrelated to the service.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.75
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.83
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 1.58
+    },
+    {
+      "id": "response_time",
+      "category": "missing",
+      "repeat": 1,
+      "question": "How many minutes is the service owner guaranteed to take to respond to a conversion incident?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Acknowledge absent response-time commitment; do not invent a number.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.72
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.76
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 1.48
+    },
+    {
+      "id": "ambiguous_recipient",
+      "category": "ambiguous",
+      "repeat": 1,
+      "question": "Who should get the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask whether this is conversion or client onboarding; do not silently choose one.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.76
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.73
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.39
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.77
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.01
+          },
+          {
+            "stage": "generation",
+            "seconds": 4.19
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.83
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "Who should get the handoff?",
+        "status": "answered",
+        "answer": "The account manager should get the handoff for the client onboarding. [onboarding]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 69,
+            "response_text": "The account manager should get the handoff for the client onboarding.",
+            "citation_doc_id": "onboarding",
+            "citation_begin": 0,
+            "citation_end": 123,
+            "citation_text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. "
+          }
+        ]
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 10.69
+    },
+    {
+      "id": "ambiguous_contents",
+      "category": "ambiguous",
+      "repeat": 1,
+      "question": "What should I include in the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask which handoff the user means; do not silently choose one.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.78
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.77
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.57
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.86
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.1
+          },
+          {
+            "stage": "generation",
+            "seconds": 3.69
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.86
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I include in the handoff?",
+        "status": "answered",
+        "answer": "Include the signed onboarding checklist and client contact details. [onboarding]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 67,
+            "response_text": "Include the signed onboarding checklist and client contact details.",
+            "citation_doc_id": "onboarding",
+            "citation_begin": 0,
+            "citation_end": 123,
+            "citation_text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. "
+          }
+        ]
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 10.64
+    },
+    {
+      "id": "unrelated_recipe",
+      "category": "unrelated",
+      "repeat": 1,
+      "question": "How do I bake a chocolate cake?",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated cooking request before retrieval.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.83
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.88
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 1.71
+    },
+    {
+      "id": "unrelated_travel",
+      "category": "unrelated",
+      "repeat": 1,
+      "question": "Plan a sightseeing weekend in Rome for me.",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated travel planning before retrieval.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.81
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.86
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 1.67
+    },
+    {
+      "id": "partial_write",
+      "category": "answer",
+      "repeat": 2,
+      "question": "What should I do after a conversion job partially writes its output and then fails?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Escalate to service owner, record job identifier, and do not retry without confirmation that output will not be duplicated.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.76
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.81
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 2.41
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.02
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.93
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.15
+          },
+          {
+            "stage": "generation",
+            "seconds": 4.09
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.94
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I do after a conversion job partially writes its output and then fails?",
+        "status": "answered",
+        "answer": "escalate to the service owner and record the job identifier. [runbook]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 60,
+            "response_text": "escalate to the service owner and record the job identifier.",
+            "citation_doc_id": "runbook",
+            "citation_begin": 142,
+            "citation_end": 226,
+            "citation_text": "After a partial write, escalate to the service owner and record the job identifier. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": false,
+      "seconds": 12.11
+    },
+    {
+      "id": "schema",
+      "category": "answer",
+      "repeat": 2,
+      "question": "What should happen after a schema mismatch in a conversion job?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Investigate before repeating; do not recommend an immediate automatic retry.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.88
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.8
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.68
+    },
+    {
+      "id": "explicit_onboarding",
+      "category": "answer",
+      "repeat": 2,
+      "question": "For a new client's onboarding handoff, who receives it and what should I send?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Account manager receives signed onboarding checklist and client contact details.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.81
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.81
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.62
+    },
+    {
+      "id": "transient",
+      "category": "answer",
+      "repeat": 2,
+      "question": "When is it safe to retry a transient transport failure in the conversion service?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Only after confirming that no output was written; do not invent a retry count.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.78
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.86
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 2.04
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.91
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.15
+          },
+          {
+            "stage": "generation",
+            "seconds": 5.53
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.77
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "When is it safe to retry a transient transport failure in the conversion service?",
+        "status": "answered",
+        "answer": "A transient transport failure may be retried only after confirming that no output was written. [runbook]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 94,
+            "response_text": "A transient transport failure may be retried only after confirming that no output was written.",
+            "citation_doc_id": "runbook",
+            "citation_begin": 379,
+            "citation_end": 474,
+            "citation_text": "A transient transport failure may be retried only after confirming that no output was written. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 13.04
+    },
+    {
+      "id": "followup_id",
+      "category": "followup",
+      "repeat": 2,
+      "question": "What should I record when I do that?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Resolve 'that' to escalation and identify the job identifier.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          },
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.77
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.83
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.97
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.87
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.13
+          },
+          {
+            "stage": "generation",
+            "seconds": 4.05
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.8
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I record when I escalate to the service owner before retrying?",
+        "status": "answered",
+        "answer": "Record the job identifier and incident summary. [conversion]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 47,
+            "response_text": "Record the job identifier and incident summary.",
+            "citation_doc_id": "conversion",
+            "citation_begin": 0,
+            "citation_end": 95,
+            "citation_text": "For the conversion handoff, send the job identifier and incident summary to the service owner. "
+          }
+        ]
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 11.42
+    },
+    {
+      "id": "followup_recipient",
+      "category": "followup",
+      "repeat": 2,
+      "question": "Who should I send it to?",
+      "expected": [
+        "answered"
+      ],
+      "rubric": "Resolve onboarding handoff to account manager, not service owner.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.76
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.82
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": false,
+      "seconds": 1.58
+    },
+    {
+      "id": "price",
+      "category": "missing",
+      "repeat": 2,
+      "question": "How much does the conversion service charge per document?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Do not invent pricing or call this unrelated to the service.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.75
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.77
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 1.52
+    },
+    {
+      "id": "response_time",
+      "category": "missing",
+      "repeat": 2,
+      "question": "How many minutes is the service owner guaranteed to take to respond to a conversion incident?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Acknowledge absent response-time commitment; do not invent a number.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.78
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.8
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 1.57
+    },
+    {
+      "id": "ambiguous_recipient",
+      "category": "ambiguous",
+      "repeat": 2,
+      "question": "Who should get the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask whether this is conversion or client onboarding; do not silently choose one.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.77
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.85
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.48
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.89
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.11
+          },
+          {
+            "stage": "generation",
+            "seconds": 4.53
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.96
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "Who should get the handoff?",
+        "status": "answered",
+        "answer": "The account manager should get the handoff for the client onboarding. [onboarding]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 69,
+            "response_text": "The account manager should get the handoff for the client onboarding.",
+            "citation_doc_id": "onboarding",
+            "citation_begin": 0,
+            "citation_end": 123,
+            "citation_text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. "
+          }
+        ]
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 11.58
+    },
+    {
+      "id": "ambiguous_contents",
+      "category": "ambiguous",
+      "repeat": 2,
+      "question": "What should I include in the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask which handoff the user means; do not silently choose one.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [
+          {
+            "id": "onboarding",
+            "title": "Fictional client onboarding handoff",
+            "text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. This handoff concerns onboarding a new client, not a failed conversion job."
+          },
+          {
+            "id": "conversion",
+            "title": "Fictional conversion handoff",
+            "text": "For the conversion handoff, send the job identifier and incident summary to the service owner. This handoff concerns a failed conversion job. The service owner decides whether a retry is safe."
+          },
+          {
+            "id": "runbook",
+            "title": "Fictional conversion service runbook",
+            "text": "The conversion service validates the input schema, converts the document, and writes output to storage. Each job has a unique job identifier. After a partial write, escalate to the service owner and record the job identifier. Do not retry until the owner confirms that another attempt will not duplicate output. A schema mismatch requires investigation before repeating the job. A transient transport failure may be retried only after confirming that no output was written. This runbook does not specify prices, a universal retry count, or response-time commitments."
+          }
+        ],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.8
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.86
+          },
+          {
+            "stage": "query_rewrite",
+            "seconds": 1.64
+          },
+          {
+            "stage": "retrieval",
+            "seconds": 0.01
+          },
+          {
+            "stage": "answerability",
+            "seconds": 0.94
+          },
+          {
+            "stage": "clarification",
+            "seconds": 1.1
+          },
+          {
+            "stage": "generation",
+            "seconds": 3.64
+          },
+          {
+            "stage": "citations",
+            "seconds": 1.78
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "rewritten_query": "What should I include in the handoff?",
+        "status": "answered",
+        "answer": "Include the signed onboarding checklist and client contact details. [onboarding]",
+        "citations": [
+          {
+            "response_begin": 0,
+            "response_end": 67,
+            "response_text": "Include the signed onboarding checklist and client contact details.",
+            "citation_doc_id": "onboarding",
+            "citation_begin": 0,
+            "citation_end": 123,
+            "citation_text": "For the client onboarding handoff, send the signed onboarding checklist and client contact details to the account manager. "
+          }
+        ]
+      },
+      "status_pass": false,
+      "keyword_screen": true,
+      "seconds": 10.77
+    },
+    {
+      "id": "unrelated_recipe",
+      "category": "unrelated",
+      "repeat": 2,
+      "question": "How do I bake a chocolate cake?",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated cooking request before retrieval.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.78
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.76
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 1.54
+    },
+    {
+      "id": "unrelated_travel",
+      "category": "unrelated",
+      "repeat": 2,
+      "question": "Plan a sightseeing weekend in Rome for me.",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated travel planning before retrieval.",
+      "result": {
+        "mode": "granite-hf-notebook-flow",
+        "sources": [],
+        "trace": [
+          {
+            "stage": "guardian_harm",
+            "seconds": 0.71
+          },
+          {
+            "stage": "guardian_scope",
+            "seconds": 0.73
+          }
+        ],
+        "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+        "status": "blocked",
+        "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+      },
+      "status_pass": true,
+      "keyword_screen": true,
+      "seconds": 1.44
+    }
+  ],
+  "load_seconds": 14.09
+}

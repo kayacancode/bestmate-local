@@ -1,0 +1,267 @@
+[
+  {
+    "stage": "guardian_harm",
+    "seconds": 2.3,
+    "result": 0.00010890101515765538
+  },
+  {
+    "stage": "guardian_scope",
+    "seconds": 0.68,
+    "result": 0.6791814565808044
+  },
+  {
+    "stage": "rewrite",
+    "seconds": 2.51,
+    "result": "What should I do if a conversion job fails after writing some output?"
+  },
+  {
+    "stage": "answerability",
+    "seconds": 1.04,
+    "result": "answerable"
+  },
+  {
+    "stage": "clarification_clear",
+    "seconds": 1.29,
+    "result": "CLEAR"
+  },
+  {
+    "stage": "clarification_ambiguous",
+    "seconds": 0.82,
+    "result": "CLEAR"
+  },
+  {
+    "stage": "generation",
+    "seconds": 3.91,
+    "result": "Escalate to the service owner and record the job identifier. Do not retry until confirmed by the owner."
+  },
+  {
+    "stage": "citations",
+    "seconds": 3.02,
+    "result": [
+      {
+        "response_begin": 0,
+        "response_end": 61,
+        "response_text": "Escalate to the service owner and record the job identifier. ",
+        "citation_doc_id": "0",
+        "citation_begin": 72,
+        "citation_end": 141,
+        "citation_text": "If a job fails after a partial write, escalate to the service owner. "
+      },
+      {
+        "response_begin": 0,
+        "response_end": 61,
+        "response_text": "Escalate to the service owner and record the job identifier. ",
+        "citation_doc_id": "0",
+        "citation_begin": 227,
+        "citation_end": 270,
+        "citation_text": "Record the job identifier when escalating. "
+      },
+      {
+        "response_begin": 61,
+        "response_end": 103,
+        "response_text": "Do not retry until confirmed by the owner.",
+        "citation_doc_id": "0",
+        "citation_begin": 141,
+        "citation_end": 227,
+        "citation_text": "Do not retry until the owner confirms that another attempt will not duplicate output. "
+      }
+    ]
+  },
+  {
+    "stage": "followup_rewrite",
+    "result": "What should I record when I escalate a partial write to the service owner?",
+    "seconds": 2.15
+  },
+  {
+    "stage": "full_answer",
+    "result": {
+      "mode": "granite-hf-notebook-flow",
+      "sources": [],
+      "trace": [
+        {
+          "stage": "guardian_harm",
+          "seconds": 0.7
+        },
+        {
+          "stage": "guardian_scope",
+          "seconds": 1.15
+        }
+      ],
+      "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+      "status": "blocked",
+      "answer": "This appears outside this twin\u2019s subject area. Rephrase the question or ask the owner to review its scope."
+    },
+    "seconds": 1.84
+  },
+  {
+    "stage": "full_followup",
+    "result": {
+      "mode": "granite-hf-notebook-flow",
+      "sources": [
+        {
+          "id": "handoff",
+          "title": "Fictional conversion service runbook",
+          "text": "The conversion service converts documents and writes output to storage. If a job fails after a partial write, escalate to the service owner. Do not retry until the owner confirms that another attempt will not duplicate output. Record the job identifier when escalating. The runbook does not specify pricing or a universal retry count."
+        }
+      ],
+      "trace": [
+        {
+          "stage": "guardian_harm",
+          "seconds": 0.71
+        },
+        {
+          "stage": "guardian_scope",
+          "seconds": 0.67
+        },
+        {
+          "stage": "query_rewrite",
+          "seconds": 1.94
+        },
+        {
+          "stage": "retrieval",
+          "seconds": 0.22
+        },
+        {
+          "stage": "answerability",
+          "seconds": 0.53
+        },
+        {
+          "stage": "clarification",
+          "seconds": 0.77
+        },
+        {
+          "stage": "generation",
+          "seconds": 1.31
+        },
+        {
+          "stage": "citations",
+          "seconds": 1.38
+        }
+      ],
+      "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+      "rewritten_query": "What should I record when I escalate a partial write to the service owner?",
+      "status": "answered",
+      "answer": "Record the job identifier. [handoff]",
+      "citations": [
+        {
+          "response_begin": 0,
+          "response_end": 26,
+          "response_text": "Record the job identifier.",
+          "citation_doc_id": "handoff",
+          "citation_begin": 227,
+          "citation_end": 270,
+          "citation_text": "Record the job identifier when escalating. "
+        }
+      ]
+    },
+    "seconds": 7.54
+  },
+  {
+    "stage": "full_missing_evidence",
+    "result": {
+      "mode": "granite-hf-notebook-flow",
+      "sources": [
+        {
+          "id": "handoff",
+          "title": "Fictional conversion service runbook",
+          "text": "The conversion service converts documents and writes output to storage. If a job fails after a partial write, escalate to the service owner. Do not retry until the owner confirms that another attempt will not duplicate output. Record the job identifier when escalating. The runbook does not specify pricing or a universal retry count."
+        }
+      ],
+      "trace": [
+        {
+          "stage": "guardian_harm",
+          "seconds": 0.69
+        },
+        {
+          "stage": "guardian_scope",
+          "seconds": 0.78
+        },
+        {
+          "stage": "query_rewrite",
+          "seconds": 1.34
+        },
+        {
+          "stage": "retrieval",
+          "seconds": 0.01
+        },
+        {
+          "stage": "answerability",
+          "seconds": 0.62
+        }
+      ],
+      "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+      "rewritten_query": "How much does each conversion cost?",
+      "status": "needs_context",
+      "answer": "The permitted sources do not contain enough information. Add a relevant source or ask the owner."
+    },
+    "seconds": 3.43
+  },
+  {
+    "stage": "full_ambiguous",
+    "result": {
+      "mode": "granite-hf-notebook-flow",
+      "sources": [
+        {
+          "id": "second",
+          "title": "Fictional onboarding handoff",
+          "text": "The onboarding handoff goes to the account manager. Send the signed checklist. The conversion handoff goes to the service owner with the job identifier."
+        },
+        {
+          "id": "handoff",
+          "title": "Fictional conversion service runbook",
+          "text": "The conversion service converts documents and writes output to storage. If a job fails after a partial write, escalate to the service owner. Do not retry until the owner confirms that another attempt will not duplicate output. Record the job identifier when escalating. The runbook does not specify pricing or a universal retry count."
+        }
+      ],
+      "trace": [
+        {
+          "stage": "guardian_harm",
+          "seconds": 0.69
+        },
+        {
+          "stage": "guardian_scope",
+          "seconds": 0.7
+        },
+        {
+          "stage": "query_rewrite",
+          "seconds": 1.24
+        },
+        {
+          "stage": "retrieval",
+          "seconds": 0.02
+        },
+        {
+          "stage": "answerability",
+          "seconds": 0.6
+        },
+        {
+          "stage": "clarification",
+          "seconds": 0.85
+        },
+        {
+          "stage": "generation",
+          "seconds": 3.4
+        },
+        {
+          "stage": "citations",
+          "seconds": 1.51
+        }
+      ],
+      "check_notice": "Adapter scores are model judgments, not calibrated confidence or owner approval.",
+      "rewritten_query": "Who should get the handoff?",
+      "status": "answered",
+      "answer": "The conversion handoff should go to the service owner with the job identifier. [second]",
+      "citations": [
+        {
+          "response_begin": 0,
+          "response_end": 78,
+          "response_text": "The conversion handoff should go to the service owner with the job identifier.",
+          "citation_doc_id": "second",
+          "citation_begin": 79,
+          "citation_end": 152,
+          "citation_text": "The conversion handoff goes to the service owner with the job identifier."
+        }
+      ]
+    },
+    "seconds": 9.01
+  }
+]
