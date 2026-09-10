@@ -61,6 +61,7 @@ class GraniteAdapters(OllamaBaseline):
         import torch
         from transformers import AutoModelForCausalLM,AutoTokenizer
         from mellea.backends.huggingface import LocalHFBackend
+        from mellea.backends.cache import SimpleLRUCache
         from mellea.stdlib.context import ChatContext
         from mellea.stdlib.session import MelleaSession
         self.ctx_type=ChatContext
@@ -68,7 +69,10 @@ class GraniteAdapters(OllamaBaseline):
         device=torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
         model=AutoModelForCausalLM.from_pretrained(model_id,local_files_only=True,dtype=torch.bfloat16,attn_implementation='eager').to(device)
         tokenizer=AutoTokenizer.from_pretrained(model_id,local_files_only=True)
-        self.backend=LocalHFBackend(model_id,custom_config=(tokenizer,model,device),use_caches=False,
+        # Cache attention states within generation instead of recomputing the full
+        # prompt for each token. Retain no KV entries between calls or people.
+        self.backend=LocalHFBackend(model_id,custom_config=(tokenizer,model,device),
+                                    use_caches=True,cache=SimpleLRUCache(capacity=0),
                                     default_to_constraint_checking_alora=False,
                                     model_options={'max_new_tokens':400,'do_sample':False})
         self.factory=lambda:MelleaSession(self.backend,ChatContext())
@@ -83,8 +87,10 @@ class GraniteAdapters(OllamaBaseline):
         from mellea.stdlib.components import Message
         ctx=self.ctx_type().add(Message('user',question))
         try:
+            # Sentence-level explanations can exceed 384 tokens even for a short answer.
+            # Allow complete JSON; malformed output still withholds the answer.
             records=rag.flag_hallucinated_content(answer,[d.text for d in docs],ctx,self.backend,
-                model_options={'max_new_tokens':384,'do_sample':False,'no_repeat_ngram_size':16})
+                model_options={'max_new_tokens':1024,'do_sample':False,'no_repeat_ngram_size':16})
         except Exception as error:
             cause=error
             seen=set()

@@ -8,6 +8,8 @@ This repository contains the standalone SwiftUI app, a local Python RAG service,
 
 The follow-up [Guardian scope diagnostic](experiments/local-rag-pilot/results/scope-diagnostic.md) compares six formulations across 20 questions. None was reliable enough to promote; the existing gate remains unchanged.
 
+The checked-in evaluation predates the September 10 generation-cache fix. The HF backend now caches attention states within each generation and retains no KV entries between calls. The source checker also has a larger output budget, but can still return malformed output; those answers remain withheld. Earlier latency measurements have not been refreshed; the scope and clarification findings above still need separate work.
+
 ## What is here
 
 - **Knowledge:** add text/Markdown/PDF files, search local folders, or explicitly connect Granola with your own key.
