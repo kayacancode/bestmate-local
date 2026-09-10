@@ -1,0 +1,1088 @@
+{
+  "threshold": 0.5,
+  "device": "mps",
+  "variants": {
+    "baseline": [
+      "The request relates to the following workspace purpose or source subjects, including follow-up questions about them: Questions about operating the document conversion service, handling failed conversion jobs, and arranging conversion or client onboarding handoffs, including follow-up questions about these tasks.",
+      "user_prompt"
+    ],
+    "scope_only": [
+      "Questions about operating the document conversion service, handling failed conversion jobs, and arranging conversion or client onboarding handoffs, including follow-up questions about these tasks.",
+      "user_prompt"
+    ],
+    "definition": [
+      "Document conversion service and client onboarding operations concern processing input documents, validating schemas, writing output, troubleshooting failed jobs, deciding whether retries are safe, and handing work to the responsible service owner or account manager. Questions about this service\u2019s capabilities, costs, incident response, job records, or onboarding requirements belong to this domain even if the available documents do not contain the answer. Questions about an unspecified handoff or follow-up references to these operations also belong to the domain. Unrelated uses of the words conversion, account or service do not by themselves belong to this domain.",
+      "user_prompt"
+    ],
+    "context_schema": [
+      "The request relates to the following workspace purpose or source subjects, including follow-up questions about them: Questions about operating the document conversion service, handling failed conversion jobs, and arranging conversion or client onboarding handoffs, including follow-up questions about these tasks.",
+      "Interpret the last user's message in the context of the preceding conversation. If its subject meets the criteria, return 'yes'; otherwise return 'no'."
+    ]
+  },
+  "cases": [
+    {
+      "id": "partial_write",
+      "category": "answer",
+      "question": "What should I do after a conversion job partially writes its output and then fails?",
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "owner"
+        ],
+        [
+          "job id",
+          "job ident"
+        ],
+        [
+          "not retry",
+          "do not",
+          "before retry",
+          "until"
+        ]
+      ],
+      "rubric": "Escalate to service owner, record job identifier, and do not retry without confirmation that output will not be duplicated.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "schema",
+      "category": "answer",
+      "question": "What should happen after a schema mismatch in a conversion job?",
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "investigat"
+        ]
+      ],
+      "rubric": "Investigate before repeating; do not recommend an immediate automatic retry.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "explicit_onboarding",
+      "category": "answer",
+      "question": "For a new client's onboarding handoff, who receives it and what should I send?",
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "account manager"
+        ],
+        [
+          "checklist"
+        ],
+        [
+          "contact"
+        ]
+      ],
+      "rubric": "Account manager receives signed onboarding checklist and client contact details.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "transient",
+      "category": "answer",
+      "question": "When is it safe to retry a transient transport failure in the conversion service?",
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "no output",
+          "nothing was written",
+          "not written",
+          "no data"
+        ]
+      ],
+      "rubric": "Only after confirming that no output was written; do not invent a retry count.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "followup_id",
+      "category": "followup",
+      "question": "What should I record when I do that?",
+      "history": [
+        {
+          "role": "user",
+          "content": "The conversion failed after a partial write. What next?"
+        },
+        {
+          "role": "assistant",
+          "content": "Escalate to the service owner before retrying."
+        }
+      ],
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "job id",
+          "job ident"
+        ]
+      ],
+      "rubric": "Resolve 'that' to escalation and identify the job identifier.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "followup_recipient",
+      "category": "followup",
+      "question": "Who should I send it to?",
+      "history": [
+        {
+          "role": "user",
+          "content": "I'm preparing the signed checklist and contact details for a new client's onboarding handoff."
+        },
+        {
+          "role": "assistant",
+          "content": "You have the documents for the onboarding handoff."
+        }
+      ],
+      "expected": [
+        "answered"
+      ],
+      "keywords": [
+        [
+          "account manager"
+        ]
+      ],
+      "rubric": "Resolve onboarding handoff to account manager, not service owner.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "price",
+      "category": "missing",
+      "question": "How much does the conversion service charge per document?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Do not invent pricing or call this unrelated to the service.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "response_time",
+      "category": "missing",
+      "question": "How many minutes is the service owner guaranteed to take to respond to a conversion incident?",
+      "expected": [
+        "needs_context"
+      ],
+      "rubric": "Acknowledge absent response-time commitment; do not invent a number.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "ambiguous_recipient",
+      "category": "ambiguous",
+      "question": "Who should get the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask whether this is conversion or client onboarding; do not silently choose one.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "ambiguous_contents",
+      "category": "ambiguous",
+      "question": "What should I include in the handoff?",
+      "expected": [
+        "needs_clarification"
+      ],
+      "rubric": "Ask which handoff the user means; do not silently choose one.",
+      "relevant": true,
+      "split": "development"
+    },
+    {
+      "id": "unrelated_recipe",
+      "category": "unrelated",
+      "question": "How do I bake a chocolate cake?",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated cooking request before retrieval.",
+      "relevant": false,
+      "split": "development"
+    },
+    {
+      "id": "unrelated_travel",
+      "category": "unrelated",
+      "question": "Plan a sightseeing weekend in Rome for me.",
+      "expected": [
+        "blocked"
+      ],
+      "rubric": "Scope check should stop unrelated travel planning before retrieval.",
+      "relevant": false,
+      "split": "development"
+    },
+    {
+      "id": "holdout_duplicate",
+      "question": "The converter saved half the file. Can I run the job again?",
+      "relevant": true,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_regions",
+      "question": "Which regions can our document conversion service run in?",
+      "relevant": true,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_contact",
+      "question": "Who receives the new client\u2019s signed onboarding paperwork?",
+      "relevant": true,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_followup",
+      "question": "What if some output already exists?",
+      "history": [
+        {
+          "role": "user",
+          "content": "Can I retry the failed document conversion?"
+        },
+        {
+          "role": "assistant",
+          "content": "First establish whether the job wrote output."
+        }
+      ],
+      "relevant": true,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_temperature",
+      "question": "How do I convert 90 degrees Fahrenheit to Celsius?",
+      "relevant": false,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_bank",
+      "question": "Which bank account should I open for better savings interest?",
+      "relevant": false,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_car",
+      "question": "How often should I service my car?",
+      "relevant": false,
+      "split": "holdout"
+    },
+    {
+      "id": "holdout_garden",
+      "question": "What flowers should I plant in a shady garden?",
+      "relevant": false,
+      "split": "holdout"
+    }
+  ],
+  "results": [
+    {
+      "variant": "baseline",
+      "id": "partial_write",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9324535156542539,
+      "relevant": true,
+      "correct": true,
+      "seconds": 2.47
+    },
+    {
+      "variant": "baseline",
+      "id": "schema",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.32082409369050274,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.72
+    },
+    {
+      "variant": "baseline",
+      "id": "explicit_onboarding",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.4073366754773831,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.77
+    },
+    {
+      "variant": "baseline",
+      "id": "transient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.8670364670678021,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.72
+    },
+    {
+      "variant": "baseline",
+      "id": "followup_id",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.7981883386363253,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.76
+    },
+    {
+      "variant": "baseline",
+      "id": "followup_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.02297756683916784,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.78
+    },
+    {
+      "variant": "baseline",
+      "id": "price",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.06754734764700436,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.74
+    },
+    {
+      "variant": "baseline",
+      "id": "response_time",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.01243178179045869,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.75
+    },
+    {
+      "variant": "baseline",
+      "id": "ambiguous_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9046507016213495,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.72
+    },
+    {
+      "variant": "baseline",
+      "id": "ambiguous_contents",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.5621788717300708,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.64
+    },
+    {
+      "variant": "baseline",
+      "id": "unrelated_recipe",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 6.144317710097375e-06,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "baseline",
+      "id": "unrelated_travel",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 5.422285428247078e-06,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.63
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_duplicate",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.8519535005483924,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.67
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_regions",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.04208861269019211,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.69
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_contact",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.0008040976635524195,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.67
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_followup",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.8175758194155649,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.71
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_temperature",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.0001584375051487304,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.69
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_bank",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 7.889352799919145e-06,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_car",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 1.1478881540036363e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.69
+    },
+    {
+      "variant": "baseline",
+      "id": "holdout_garden",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 1.0130090950212655e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.65
+    },
+    {
+      "variant": "scope_only",
+      "id": "partial_write",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.705787548494948,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.75
+    },
+    {
+      "variant": "scope_only",
+      "id": "schema",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.04742661369654383,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.7
+    },
+    {
+      "variant": "scope_only",
+      "id": "explicit_onboarding",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.22270295530467032,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.71
+    },
+    {
+      "variant": "scope_only",
+      "id": "transient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.3208251318940698,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.68
+    },
+    {
+      "variant": "scope_only",
+      "id": "followup_id",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.6224635547281254,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.72
+    },
+    {
+      "variant": "scope_only",
+      "id": "followup_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.014063800564554512,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.76
+    },
+    {
+      "variant": "scope_only",
+      "id": "price",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.017986350494133538,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.72
+    },
+    {
+      "variant": "scope_only",
+      "id": "response_time",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.0019267582229068546,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.69
+    },
+    {
+      "variant": "scope_only",
+      "id": "ambiguous_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.5000041352267067,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.71
+    },
+    {
+      "variant": "scope_only",
+      "id": "ambiguous_contents",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.26894490283534384,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.63
+    },
+    {
+      "variant": "scope_only",
+      "id": "unrelated_recipe",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 6.962557028778587e-06,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.63
+    },
+    {
+      "variant": "scope_only",
+      "id": "unrelated_travel",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 1.4739149346023211e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.65
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_duplicate",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.622462409756253,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.69
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_regions",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.04742674189594585,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.67
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_contact",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.0005527878148321278,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.62
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_followup",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.6791829091918695,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_temperature",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.0002611926435998167,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.63
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_bank",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 1.6701759930920107e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.62
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_car",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 6.144356849781144e-06,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.67
+    },
+    {
+      "variant": "scope_only",
+      "id": "holdout_garden",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 1.0130224747034542e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.61
+    },
+    {
+      "variant": "definition",
+      "id": "partial_write",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9046508153627654,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.71
+    },
+    {
+      "variant": "definition",
+      "id": "schema",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.7310598331758831,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.72
+    },
+    {
+      "variant": "definition",
+      "id": "explicit_onboarding",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.46879289974486416,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.71
+    },
+    {
+      "variant": "definition",
+      "id": "transient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9241420077453807,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.71
+    },
+    {
+      "variant": "definition",
+      "id": "followup_id",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.5926691725578358,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.73
+    },
+    {
+      "variant": "definition",
+      "id": "followup_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.05340372731315226,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.76
+    },
+    {
+      "variant": "definition",
+      "id": "price",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.04742601531923127,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.73
+    },
+    {
+      "variant": "definition",
+      "id": "response_time",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.008577533315542993,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.71
+    },
+    {
+      "variant": "definition",
+      "id": "ambiguous_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.5312117130761225,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.72
+    },
+    {
+      "variant": "definition",
+      "id": "ambiguous_contents",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.32082336426320274,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.69
+    },
+    {
+      "variant": "definition",
+      "id": "unrelated_recipe",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 8.481193331481624e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.77
+    },
+    {
+      "variant": "definition",
+      "id": "unrelated_travel",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 0.0003353509878646271,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_duplicate",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.5926685559585662,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.69
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_regions",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.2227018255545854,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.68
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_contact",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.004609622034271708,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.68
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_followup",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.8670363121818982,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.73
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_temperature",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.047426314032374205,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.7
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_bank",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.002182730256122987,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.67
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_car",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.0002305082670479072,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.76
+    },
+    {
+      "variant": "definition",
+      "id": "holdout_garden",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 9.610285271503054e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "partial_write",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9706876462944565,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "schema",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.4378257110419529,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.75
+    },
+    {
+      "variant": "context_schema",
+      "id": "explicit_onboarding",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.3486467583595725,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.72
+    },
+    {
+      "variant": "context_schema",
+      "id": "transient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.9525741066015754,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "followup_id",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.7310599442323685,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.71
+    },
+    {
+      "variant": "context_schema",
+      "id": "followup_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.020332479217501333,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.73
+    },
+    {
+      "variant": "context_schema",
+      "id": "price",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.32082267308527096,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.7
+    },
+    {
+      "variant": "context_schema",
+      "id": "response_time",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.022977513556817448,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "ambiguous_recipient",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.8670359358862597,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "context_schema",
+      "id": "ambiguous_contents",
+      "split": "development",
+      "expected_relevant": true,
+      "score": 0.7981871784798494,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "context_schema",
+      "id": "unrelated_recipe",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 1.3007282643159438e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "context_schema",
+      "id": "unrelated_travel",
+      "split": "development",
+      "expected_relevant": false,
+      "score": 1.013006858193348e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.66
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_duplicate",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.777300701949716,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.69
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_regions",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.042088213771484716,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.71
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_contact",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.00043056202672972325,
+      "relevant": false,
+      "correct": false,
+      "seconds": 0.66
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_followup",
+      "split": "holdout",
+      "expected_relevant": true,
+      "score": 0.6791803420293104,
+      "relevant": true,
+      "correct": true,
+      "seconds": 0.73
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_temperature",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 0.00010889792496676782,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_bank",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 2.7535851833079365e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.65
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_car",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 1.4739147806421344e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.68
+    },
+    {
+      "variant": "context_schema",
+      "id": "holdout_garden",
+      "split": "holdout",
+      "expected_relevant": false,
+      "score": 2.4300409266358973e-05,
+      "relevant": false,
+      "correct": true,
+      "seconds": 0.71
+    }
+  ],
+  "notice": "Exploratory prompt comparison, not calibrated confidence. Holdouts were fixed before this run. Source permissions unchanged.",
+  "load_seconds": 9.53
+}

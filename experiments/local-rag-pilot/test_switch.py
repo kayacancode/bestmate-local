@@ -38,9 +38,14 @@ class SwitchTests(unittest.TestCase):
         self.ops.harm=.9; stages=[]
         self.assertEqual(self.ask(progress=stages.append)['status'],'blocked')
         self.assertEqual(stages,['guardian_harm'])
+        result=self.ask()
+        self.assertEqual(result['blocked_by'],'guardian_harm')
+        self.assertEqual(result['guardian_scores'],{'guardian_harm':.9})
     def test_scope_block_and_invalid_score(self):
         self.ops.scope=.1
         self.assertEqual(self.ask()['status'],'blocked')
+        self.assertEqual(self.ask()['blocked_by'],'guardian_scope')
+        self.assertEqual(self.ask()['guardian_scores']['guardian_scope'],.1)
         self.ops.scope=float('nan')
         with self.assertRaises(ValueError): self.ask()
     def test_unanswerable_is_separate_from_clarification(self):

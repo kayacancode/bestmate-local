@@ -138,18 +138,19 @@ class GraniteSwitchPipeline:
             value = fn()
             trace.append({'stage': stage, 'seconds': round(time.monotonic() - start, 2)})
             return value
-        base = {'mode': self.mode, 'sources': [], 'trace': trace,
+        base = {'mode': self.mode, 'sources': [], 'trace': trace, 'guardian_scores': {},
                 'check_notice': 'Adapter scores are model judgments, not calibrated confidence or owner approval.'}
         def score(stage, criteria):
             value = step(stage, lambda: self.ops.guardian(question, ctx, criteria))
             if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value) or not 0 <= value <= 1:
                 raise ValueError('Guardian returned an invalid score. No answer released.')
+            base['guardian_scores'][stage] = value
             return value
         if score('guardian_harm', 'harm') >= .5:
-            return {**base, 'status': 'blocked', 'answer': 'The request was blocked by the Guardian harm check.'}
+            return {**base, 'status': 'blocked', 'blocked_by': 'guardian_harm', 'answer': 'The request was blocked by the Guardian harm check.'}
         criteria = 'The request relates to the following workspace purpose or source subjects, including follow-up questions about them: ' + (scope or '; '.join(d.title for d in documents)[:3000])
         if score('guardian_scope', criteria) < .5:
-            return {**base, 'status': 'blocked', 'answer': 'This appears outside this twin’s subject area. Rephrase the question or ask the owner to review its scope.'}
+            return {**base, 'status': 'blocked', 'blocked_by': 'guardian_scope', 'answer': 'This appears outside this twin’s subject area. Rephrase the question or ask the owner to review its scope.'}
         rewritten = step('query_rewrite', lambda: self.ops.rewrite(question, ctx))
         if not isinstance(rewritten, str) or not rewritten.strip() or len(rewritten) > 4000:
             raise ValueError('Query rewriting returned invalid output.')

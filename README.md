@@ -6,6 +6,8 @@ This repository contains the standalone SwiftUI app, a local Python RAG service,
 
 **Start with the [HF evaluation report](experiments/local-rag-pilot/results/hf-flow-evaluation.md)** and its [fixed test cases](experiments/local-rag-pilot/hf_flow_cases.json). Twelve fictional scenarios were run twice locally. The current flow incorrectly blocked 10 of 20 legitimate requests and failed to clarify four ambiguous requests. Answered cases took a median 11.55 seconds on the development Mac. These are small experimental results, not production benchmarks.
 
+The follow-up [Guardian scope diagnostic](experiments/local-rag-pilot/results/scope-diagnostic.md) compares six formulations across 20 questions. None was reliable enough to promote; the existing gate remains unchanged.
+
 ## What is here
 
 - **Knowledge:** add text/Markdown/PDF files, search local folders, or explicitly connect Granola with your own key.
