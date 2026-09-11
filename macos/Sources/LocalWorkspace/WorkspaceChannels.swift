@@ -159,7 +159,7 @@ struct WorkspaceChannels: View {
     var body: some View {
         WorkspacePanel {
             Text("Slack").font(.title3.weight(.semibold))
-            Text("Mention your bot in a mapped channel. It replies privately to the sender, using the channel audience or their individual permissions. Messages and replies travel through Slack; retrieval and the model run on this Mac.").fixedSize(horizontal: false, vertical: true)
+            Text("Mention your bot in a mapped channel. It replies privately to the sender, using the channel audience or their individual permissions. Messages and replies travel through Slack; retrieval stays on this Mac and selected excerpts go to your configured model.").fixedSize(horizontal: false, vertical: true)
             DisclosureGroup("Set up your Slack app") {
                 Text("Create a Slack app, enable Socket Mode, and subscribe to app_mention. Add bot scopes app_mentions:read, chat:write, and im:write. Install it, invite the bot to your channel, and create an app token with connections:write.").font(.callout)
                 Link("Open Slack app settings", destination: URL(string: "https://api.slack.com/apps")!)

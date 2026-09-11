@@ -19,6 +19,19 @@ class HTTPTests(unittest.TestCase):
         h.send=lambda status,data:h.results.append((status,data))
         return h
 
+    def test_model_connection_check_is_authenticated_and_has_no_sources(self):
+        h=self.request(); h.path='/api/model/check'
+        body=json.dumps({'gateway':{'url':'https://example.com/v1','model':'test'}}).encode()
+        h.rfile=io.BytesIO(body); h.headers['Content-Length']=str(len(body))
+        with patch('gateway.GatewayBackend') as backend:
+            backend.return_value.text.return_value='OK'
+            h.do_POST()
+            self.assertEqual(h.results[0],(200,{'ready':True}))
+            self.assertEqual(len(backend.return_value.text.call_args.args),1)
+        h=self.request(token=''); h.path='/api/model/check'
+        with patch('gateway.GatewayBackend') as backend:
+            h.do_POST(); self.assertEqual(h.results[0][0],403); backend.assert_not_called()
+
     def test_progress_is_authorized_and_scoped_to_request(self):
         with patch.object(server, 'PROGRESS', {'request_id':'mine','events':[{'stage':'retrieval','seconds':1.2}]}):
             for token, request_id, expected, count in [(server.TOKEN,'mine',200,1),(server.TOKEN,'other',200,0),('', 'mine',403,0)]:

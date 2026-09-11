@@ -136,7 +136,7 @@ struct WorkspaceTelegramSetup: View {
     var body: some View {
         WorkspacePanel {
             Text("Telegram").font(.title3.weight(.semibold))
-            Text("Connect a bot to a group or private chat. Answers go privately to the sender. Everyone who will ask must open the bot and tap Start first. Retrieval and the model run on this Mac; messages travel through Telegram.")
+            Text("Connect a bot to a group or private chat. Answers go privately to the sender. Everyone who will ask must open the bot and tap Start first. Retrieval stays on this Mac. Selected excerpts go to your configured model; messages travel through Telegram.")
             DisclosureGroup("Set up your Telegram bot") {
                 Text("Create a dedicated bot with BotFather and paste its token below. Add it to your group. In groups, ask with /ask@your_bot followed by your question. Private chats accept plain questions. Use a dedicated bot if your legacy integration already uses a webhook.").font(.callout)
                 Link("Open BotFather", destination: URL(string: "https://t.me/BotFather")!)

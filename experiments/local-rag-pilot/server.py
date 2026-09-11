@@ -74,7 +74,7 @@ class Handler(BaseHTTPRequestHandler):
         origin=self.headers.get('Origin')
         if not self.allowed_host() or self.headers.get('X-Pilot-Token')!=TOKEN or (origin and origin!=f'http://127.0.0.1:{self.server.server_port}'):
             return self.send(403,{'error':'Request must originate from the local pilot page.'})
-        if self.path not in ('/api/ask','/api/workspace/ask','/api/workspace/subjects','/api/unload'): return self.send(404,{'error':'Not found'})
+        if self.path not in ('/api/ask','/api/workspace/ask','/api/workspace/subjects','/api/model/check','/api/unload'): return self.send(404,{'error':'Not found'})
         try: size=int(self.headers.get('Content-Length','0'))
         except ValueError:return self.send(400,{'error':'Invalid body size'})
         if size<=0 or size>1000000:return self.send(413,{'error':'Body too large or empty'})
@@ -82,6 +82,10 @@ class Handler(BaseHTTPRequestHandler):
         try:
             data=json.loads(self.rfile.read(size))
             if not isinstance(data,dict):raise ValueError('Expected a JSON object.')
+            if self.path=='/api/model/check':
+                from gateway import GatewayBackend
+                GatewayBackend(data.get('gateway')).text('Reply with OK. This is a connection test; no workspace documents are included.')
+                return self.send(200,{'ready':True})
             if self.path=='/api/unload':
                 RUNTIME.close()
                 return self.send(200,{'released':True})
@@ -93,7 +97,10 @@ class Handler(BaseHTTPRequestHandler):
             question=data.get('question')
             if not isinstance(question,str) or not question.strip() or len(question)>2000:raise ValueError('Enter a question under 2,000 characters.')
             mode=data.get('mode')
-            if mode not in ('ollama-baseline','granite-hf-adapters','granite-switch'):raise ValueError('Select a supported backend.')
+            if mode not in ('ollama-baseline','granite-hf-adapters','granite-switch','openai-compatible'):raise ValueError('Select a supported backend.')
+            if mode=='openai-compatible':
+                from gateway import validate_gateway
+                data['gateway']=validate_gateway(data.get('gateway'))
             if mode=='ollama-baseline' and not readiness()['ollama_ready']:raise ValueError('Start Ollama with the installed llama3.1:latest model. No cloud fallback is used.')
             if mode == 'granite-switch':
                 from granite_switch_backend import validate_history, probe
@@ -114,6 +121,8 @@ class Handler(BaseHTTPRequestHandler):
             last=PROGRESS['events'][-1]['stage'] if PROGRESS['events'] else 'preparing the request'
             if data.get('mode') == 'granite-switch':
                 return self.send(504,{'error':f'The Granite Switch request exceeded four minutes and the adapter worker was stopped. Last step: {last}. The GPU server remains running. No fallback was used.'})
+            if data.get('mode') == 'openai-compatible':
+                return self.send(504,{'error':f'The model endpoint pipeline exceeded four minutes. Last step: {last}. No fallback was used.'})
             self.send(504,{'error':f'The model exceeded four minutes and was unloaded. Last reported step: {last}. You can retry with a narrower question. No fallback was used.'})
         except (ValueError,KeyError,TypeError) as e:self.send(400,{'error':str(e)})
         except Exception as e:

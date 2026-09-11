@@ -28,7 +28,9 @@ struct WorkspaceRuntimeProgress: Decodable {
         let seconds: Double
         var title: String {
             switch stage {
-            case "Loading model", "Loading model and local search": return "Loading the local model"
+            case "Loading model": return "Starting the answer pipeline"
+            case "Preparing endpoint pipeline": return "Preparing local search and your model connection"
+            case "Loading model and local search": return "Loading the local model"
             case "Preparing request": return "Preparing your question"
             case "guardian harm": return "Checking the request with Guardian"
             case "guardian scope": return "Checking relevance to this twin"
@@ -41,7 +43,7 @@ struct WorkspaceRuntimeProgress: Decodable {
             case "grounding check": return "Checking the answer against its sources"
             case "repair": return "Revising an answer that failed checks"
             case "repair check": return "Checking the revised answer"
-            default: return "Working locally"
+            default: return "Working"
             }
         }
     }
@@ -130,9 +132,26 @@ final class WorkspaceRuntimeClient: NSObject, URLSessionTaskDelegate, WorkspaceA
         request.setValue(state.token, forHTTPHeaderField: "X-Pilot-Token")
         request.httpBody = try JSONSerialization.data(withJSONObject: [
             "mode": configuration.backend, "answer_style": verbosity == .brief ? "brief" : "standard",
+            "gateway": configuration.backend == "openai-compatible" ? gateway(configuration) : [:],
             "history": history, "scope": scope, "question": question, "documents": documents.map { ["id": $0.id.uuidString, "title": String($0.title.prefix(200)), "text": $0.text] }
         ])
         return try JSONDecoder().decode(WorkspaceRuntimeAnswer.self, from: await perform(request))
+    }
+
+    private func gateway(_ configuration: WorkspaceRuntimeConfiguration) -> [String: String] {
+        ["url": configuration.modelURL ?? "", "model": configuration.modelName ?? "",
+         "key": Keychain.loadServiceToken(service: configuration.modelKeyService) ?? ""]
+    }
+
+    func checkModel(_ configuration: WorkspaceRuntimeConfiguration) async throws {
+        let state = try await status(configuration)
+        var request = URLRequest(url: try Self.endpoint(configuration, path: "/api/model/check"))
+        request.httpMethod = "POST"
+        request.timeoutInterval = 45
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(state.token, forHTTPHeaderField: "X-Pilot-Token")
+        request.httpBody = try JSONSerialization.data(withJSONObject: ["gateway": gateway(configuration)])
+        _ = try await perform(request)
     }
 
     func unload(_ configuration: WorkspaceRuntimeConfiguration) async throws {
@@ -157,6 +176,12 @@ final class WorkspaceRuntimeController: ObservableObject {
         checking = true
         defer { checking = false }
         do {
+            if configuration.backend == "openai-compatible" {
+                try await client.checkModel(configuration)
+                ready = true
+                message = "Model endpoint answered the test. Retrieval stays on this Mac; selected excerpts go to your endpoint."
+                return true
+            }
             let status = try await client.status(configuration)
             ready = status.workspace_api == true && status.embedding_ready && (configuration.backend == "granite-switch" ? status.switch_ready == true : configuration.backend == "granite-hf-adapters" ? status.adapters_cached : status.ollama_ready)
             if configuration.backend == "granite-switch" {

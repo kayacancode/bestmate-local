@@ -119,7 +119,7 @@ struct NativeWorkspaceRoot: View {
             Button("OK") { store.error = nil }
         } message: { Text(store.error ?? "") }
         .overlay(alignment: .bottomTrailing) {
-            if store.working { HStack { ProgressView().controlSize(.small); Text("Working locally…").font(.callout) }.padding().background(.regularMaterial, in: Capsule()).padding() }
+            if store.working { HStack { ProgressView().controlSize(.small); Text("Working…").font(.callout) }.padding().background(.regularMaterial, in: Capsule()).padding() }
         }
     }
 }
@@ -249,7 +249,7 @@ struct WorkspaceQuestionBox: View {
                     TimelineView(.periodic(from: started, by: 1)) { context in
                         HStack {
                             ProgressView().controlSize(.small)
-                            Text("Working locally · \(Int(max(0, context.date.timeIntervalSince(started))))s elapsed").font(.callout.weight(.medium))
+                            Text("Working · \(Int(max(0, context.date.timeIntervalSince(started))))s elapsed").font(.callout.weight(.medium))
                         }
                     }
                     if store.questionProgress.isEmpty {
@@ -278,7 +278,7 @@ struct WorkspaceQuestionBox: View {
                 Divider()
                 Text(result.outcome.title).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
                 Text(result.answer).textSelection(.enabled)
-                Text(String(format: "%.1f seconds · local inference", result.seconds)).font(.caption).foregroundStyle(.secondary)
+                Text(String(format: "%.1f seconds", result.seconds)).font(.caption).foregroundStyle(.secondary)
                 if !result.sourceIDs.isEmpty {
                     DisclosureGroup("Material retrieved") {
                         ForEach(store.data.documents.filter { result.sourceIDs.contains($0.id) }) { doc in
@@ -304,7 +304,7 @@ struct WorkspaceSetup: View {
     @EnvironmentObject var store: NativeWorkspaceStore
     var onboarding = false
     var body: some View {
-        WorkspaceHeading(eyebrow: "Environment", title: "Your knowledge stays here.", detail: "Documents, embeddings, retrieval and inference run on this Mac. This workspace has no cloud fallback.")
+        WorkspaceHeading(eyebrow: "Environment", title: "Choose where answers run.", detail: "Knowledge and retrieval stay on this Mac. Use a local model or send selected excerpts to your approved model endpoint.")
         WorkspaceRuntimeSettings(controller: store.runtime)
         if !onboarding { WorkspacePanel {
             Text("Workspace storage").font(.headline)
@@ -319,21 +319,41 @@ struct WorkspaceRuntimeSettings: View {
     @EnvironmentObject var store: NativeWorkspaceStore
     @ObservedObject var controller: WorkspaceRuntimeController
     @State private var configuration = WorkspaceRuntimeConfiguration()
+    @State private var modelKey = ""
     var body: some View {
         WorkspacePanel {
             Text("Local model").font(.headline)
             Picker("Answer pipeline", selection: $configuration.backend) {
+                Text("Your model endpoint · OpenAI compatible").tag("openai-compatible")
                 Text("Granite + Hugging Face RAG adapters").tag("granite-hf-adapters")
                 Text("Granite Switch · notebook adapter flow").tag("granite-switch")
                 Text("Ollama baseline · Llama 3.1").tag("ollama-baseline")
             }
-            Text("Granite uses query refinement, answerability and grounding checks. Ollama uses prompt-based checks. Neither is a trained copy of your judgment.").font(.callout).foregroundStyle(.secondary)
+            if configuration.backend == "openai-compatible" {
+                Text("Local keyword retrieval requires no model downloads. Your question and selected source excerpts are sent to the endpoint below. This uses standard model calls, not Granite adapters.").font(.callout).foregroundStyle(.secondary)
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Model base URL · required")
+                    TextField("https://models.your-organization.example/v1", text: Binding(get: { configuration.modelURL ?? "" }, set: { configuration.modelURL = $0 })).textFieldStyle(.roundedBorder)
+                    Text("Model name · required")
+                    TextField("Model identifier from your server", text: Binding(get: { configuration.modelName ?? "" }, set: { configuration.modelName = $0 })).textFieldStyle(.roundedBorder)
+                    Text("API key · optional")
+                    SecureField("Leave empty if your endpoint needs no key", text: $modelKey).textFieldStyle(.roundedBorder)
+                    Text("The key is saved in macOS Keychain when you check the connection. The test sends a short prompt, without your documents.").font(.caption).foregroundStyle(.secondary)
+                }
+            } else {
+                Text("Granite uses query refinement, answerability and grounding checks. Ollama uses prompt-based checks. Neither is a trained copy of your judgment.").font(.callout).foregroundStyle(.secondary)
+            }
             if configuration.backend == "granite-switch" {
                 Text("Requires a Granite Switch GPU server at 127.0.0.1:8000, directly or through an SSH tunnel to your approved server. Uses Guardian, rewriting, answerability, clarification and citation adapters. The existing Mac model stays available as a separate choice.").font(.callout).foregroundStyle(.secondary)
             }
+            Text("Bestmate local service URL").font(.caption)
             TextField("Local service URL", text: $configuration.endpoint).textFieldStyle(.roundedBorder)
             HStack {
                 Button("Check connection") {
+                    if configuration.backend == "openai-compatible" {
+                        if modelKey.isEmpty { Keychain.deleteServiceToken(service: configuration.modelKeyService) }
+                        else { Keychain.saveServiceToken(service: configuration.modelKeyService, token: modelKey) }
+                    }
                     Task {
                         if await controller.check(configuration) {
                             configuration.lastVerifiedAt = Date()
@@ -341,12 +361,12 @@ struct WorkspaceRuntimeSettings: View {
                         }
                     }
                 }.buttonStyle(.borderedProminent).disabled(controller.checking)
-                Button(configuration.backend == "granite-switch" ? "Reset adapter session" : "Release model memory") { Task { do { try await controller.client.unload(configuration); controller.message = configuration.backend == "granite-switch" ? "Adapter worker reset. The separate GPU server is still running." : "Model memory released. The next answer will load it again." } catch { store.error = error.localizedDescription } } }
+                Button(configuration.backend == "openai-compatible" ? "Reset connection worker" : configuration.backend == "granite-switch" ? "Reset adapter session" : "Release model memory") { Task { do { try await controller.client.unload(configuration); controller.message = configuration.backend == "openai-compatible" ? "Connection worker reset. Your model server remains running." : configuration.backend == "granite-switch" ? "Adapter worker reset. The separate GPU server is still running." : "Model memory released. The next answer will load it again." } catch { store.error = error.localizedDescription } } }
             }
             Label(controller.message, systemImage: controller.ready ? "checkmark.circle" : "info.circle").font(.callout)
             DisclosureGroup("Start a prepared runtime") {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Choose a local-rag-pilot folder prepared with its model downloads. Downloads require internet during preparation; answering runs offline.").font(.callout).foregroundStyle(.secondary)
+                    Text("Choose the local-rag-pilot folder and a Python executable. Model downloads are needed only for the Granite and Ollama retrieval paths; the endpoint option uses local keyword search.").font(.callout).foregroundStyle(.secondary)
                     TextField("Runtime folder", text: $configuration.serviceDirectory).textFieldStyle(.roundedBorder)
                     TextField("Python executable", text: $configuration.pythonExecutable).textFieldStyle(.roundedBorder)
                     HStack {
@@ -373,7 +393,12 @@ struct WorkspaceRuntimeSettings: View {
                     }
                 }.padding(.top, 12)
             }
-        }.onAppear { configuration = store.data.runtime }
+        }.onAppear {
+            configuration = store.data.runtime
+            modelKey = Keychain.loadServiceToken(service: configuration.modelKeyService) ?? ""
+        }.onChange(of: configuration.modelURL) { _ in
+            modelKey = Keychain.loadServiceToken(service: configuration.modelKeyService) ?? ""
+        }
     }
 }
 

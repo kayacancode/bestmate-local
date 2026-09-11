@@ -25,7 +25,7 @@ struct WorkspaceGranola: View {
                 Spacer()
                 Text(connected ? "Key saved on this Mac" : "Optional connection").font(.caption).foregroundStyle(.secondary)
             }
-            Text("Download selected notes from Granola. Your workspace and model answers stay on this Mac. New notes are private; importing again preserves their existing sharing permissions.").foregroundStyle(.secondary)
+            Text("Download selected notes from Granola. Your workspace is stored on this Mac. Selected excerpts go to your configured model when you ask questions. New notes are private; importing again preserves their existing sharing permissions.").foregroundStyle(.secondary)
             if !connected || editingKey {
                 SecureField("Granola API key", text: $key).textFieldStyle(.roundedBorder).accessibilityIdentifier("granola-api-key")
                 HStack {

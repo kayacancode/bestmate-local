@@ -169,7 +169,7 @@ struct WorkspaceWhatsAppSetup: View {
     var body: some View {
         WorkspacePanel {
             Text("WhatsApp Business").font(.title3.weight(.semibold))
-            Text("Connect a Meta business number for direct messages. Your model stays on this Mac; messages and replies pass through WhatsApp.").fixedSize(horizontal: false, vertical: true)
+            Text("Connect a Meta business number for direct messages. Selected excerpts go to your configured model; messages and replies pass through WhatsApp.").fixedSize(horizontal: false, vertical: true)
             DisclosureGroup("Business number and webhook setup") {
                 Text("Set up WhatsApp Cloud API in Meta. Forward a public HTTPS webhook URL to http://127.0.0.1:4393/whatsapp using your approved reverse proxy. Expose only this receiver, not the model or local agent ports. In Meta, enter that URL and your verification token, then subscribe to messages. Public hosting or a tunnel is not created automatically.").font(.callout)
                 Link("Open Meta app settings", destination: URL(string: "https://developers.facebook.com/apps/")!)

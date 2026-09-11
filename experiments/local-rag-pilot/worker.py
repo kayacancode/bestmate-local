@@ -18,8 +18,10 @@ def serve(conn,mode):
     try:
         from pipeline import LocalSearch,Pipeline,validate_documents
         from backends import GraniteAdapters,OllamaBaseline
-        conn.send({'type':'stage','stage':'Loading model and local search'})
-        if mode == 'granite-switch':
+        conn.send({'type':'stage','stage':'Preparing endpoint pipeline' if mode == 'openai-compatible' else 'Loading model and local search'})
+        if mode == 'openai-compatible':
+            backend = engine = None
+        elif mode == 'granite-switch':
             from granite_switch_backend import GraniteSwitchPipeline
             backend = None
             engine = GraniteSwitchPipeline(LocalSearch())
@@ -29,6 +31,10 @@ def serve(conn,mode):
         conn.send({'type':'ready'})
         while True:
             job=conn.recv()
+            if mode == 'openai-compatible':
+                from gateway import GatewayBackend, KeywordSearch
+                backend=GatewayBackend(job.get('gateway'))
+                engine=Pipeline(KeywordSearch(),backend)
             if backend is not None: backend.answer_style=job.get('answer_style','standard')
             faulthandler.dump_traceback_later(180)
             try:
@@ -50,7 +56,11 @@ def serve(conn,mode):
                                   progress=lambda stage:conn.send({'type':'stage','stage':stage.replace('_',' ')}),
                                   **({'history':job.get('history',[]),'scope':job.get('scope','')} if mode=='granite-switch' else {}))
                 conn.send({'type':'result','result':result})
-            finally:faulthandler.cancel_dump_traceback_later()
+            finally:
+                faulthandler.cancel_dump_traceback_later()
+                if mode == 'openai-compatible':
+                    backend = engine = None
+                    job.pop('gateway',None)
     except EOFError:pass
     except Exception as e:
         traceback.print_exc()

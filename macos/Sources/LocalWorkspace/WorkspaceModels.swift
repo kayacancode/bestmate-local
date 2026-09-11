@@ -35,6 +35,9 @@ struct WorkspaceCredential: Codable, Equatable, Identifiable {
 struct WorkspaceRuntimeConfiguration: Codable, Equatable {
     var endpoint = "http://127.0.0.1:4390"
     var backend = "granite-hf-adapters"
+    var modelURL: String?
+    var modelName: String?
+    var modelKeyService: String { "model-endpoint:" + (modelURL ?? "").trimmingCharacters(in: .whitespacesAndNewlines) }
     var pythonExecutable = ""
     var serviceDirectory = ""
     var lastVerifiedAt: Date?

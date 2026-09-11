@@ -4,6 +4,14 @@ import CoreText
 @testable import BestmateLocal
 
 final class LocalWorkspaceTests: XCTestCase {
+    func testLegacyRuntimeConfigurationStillDecodes() throws {
+        let old = Data(#"{"endpoint":"http://127.0.0.1:4390","backend":"granite-hf-adapters","pythonExecutable":"","serviceDirectory":""}"#.utf8)
+        let config = try JSONDecoder().decode(WorkspaceRuntimeConfiguration.self, from: old)
+        XCTAssertNil(config.modelURL)
+        XCTAssertNil(config.modelName)
+        XCTAssertEqual(config.backend, "granite-hf-adapters")
+    }
+
     func testTelegramRoutingRequiresAddressedGroupTextAndPrefersSenderOverride() {
         let group = WorkspaceTelegramRoute(chatID: "-100123", senderID: "", memberID: UUID(), twinID: UUID(), topic: "General")
         let individual = WorkspaceTelegramRoute(chatID: "-100123", senderID: "42", memberID: UUID(), twinID: UUID(), topic: "General")
