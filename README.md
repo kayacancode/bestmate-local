@@ -49,6 +49,22 @@ Leave the terminal running. In **Environment** during onboarding, or **Local set
 5. Keep **Bestmate local service URL** at `http://127.0.0.1:4390` and click **Check connection**. This sends a short generation request with no workspace documents; it does not rely on a `/models` endpoint.
 6. Import a note or document, ask a question whose answer is in it, and review the result.
 
+### First-run walkthrough
+
+Bring an already-running model endpoint, its model identifier, and any required key. Bestmate does not provision that server. The two URL fields are different: **Model base URL** points to your model; **Bestmate local service URL** points to the Python process on your Mac.
+
+For a first test, use fictional material before trying work documents:
+
+1. **Purpose:** choose “Answer teammates’ questions.”
+2. **Environment:** configure your endpoint using the steps above. Continue after the connection test succeeds.
+3. **Knowledge:** expand “Paste a document or notes.” Set the title to “Fictional demo” and paste: `The fictional demo uses ExampleData as its data provider.` Click **Save on this Mac**. Mark this example **Available for team scopes** if you want to use it in the teammate test.
+4. **Judgment:** ask “Which data provider does the fictional demo use?” using **Create a review card**. Inspect the evidence and answer. For this fictional exercise, approve only if it correctly identifies ExampleData. Add a reason such as “This matches the fictional source,” choose **Only this question**, then click **Yes, approve →** to record your review. A timeout, malformed check, or withheld answer is a failed smoke test, not something to approve to bypass setup.
+5. **First twin:** in **People & access**, add a fictional “Demo teammate” and grant access only to “Fictional demo.” In **Twins**, build “Demo twin,” choose that person and source, and enter a short purpose such as “Answer questions about the fictional demo.” Subject restrictions are optional. Make sure its available days and hours include the time you are testing—defaults are weekdays, 09:00–17:00. Leave owner review enabled if you want to test the review inbox.
+6. **Try access:** ask the same provider question as Demo teammate. With owner review enabled, a successful answer is held for review; inspect it in **Review → Escalations**. This is a local preview, not a message sent to someone.
+7. **Connect:** skip channel or agent connections for this initial test. Finish setup and open the workspace. You can connect channels later.
+
+**What success means:** the endpoint answers the connection test; the fictional source produces a grounded, cited answer or a valid draft awaiting owner review; and the teammate is limited to the source you assigned. A successful connection test alone does not prove retrieval, grounding quality, or corporate-policy approval. The app is currently macOS-only; a Linux/Windows model server is fine, but running the native app requires a Mac.
+
 **Where data goes:** documents, retrieval, source permissions, and review records stay on your Mac. Questions and selected excerpts go to the model endpoint you explicitly configure. A remote endpoint is organization-hosted inference, not on-Mac inference. Endpoint mode sends ordinary chat requests for answerability, generation, and grounding checks; it does **not** invoke Gabe's specialized Granite adapters or provide calibrated confidence scores. Permission enforcement runs before retrieval. Model checks can still fail or be wrong.
 
 Remote endpoints must use HTTPS with a trusted certificate. HTTP is allowed for loopback servers and SSH tunnels. Redirects are rejected to avoid forwarding keys or source excerpts to another host; configure the final URL. This first version supports non-streaming chat completions and optional Bearer authentication, not arbitrary vendor-specific authentication or API schemas. BM25 matches words rather than semantic embeddings; use the terms present in your notes when testing retrieval.
